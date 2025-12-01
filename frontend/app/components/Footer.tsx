@@ -1,15 +1,11 @@
 "use client";
 
+import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "../../i18n/config";
 
 interface FooterProps {
   locale: Locale;
-  dict: {
-    footer: {
-      copyright: string;
-      rights: string;
-    };
-  };
+  dict: Dictionary["footer"];
 }
 
 export default function Footer({ locale, dict }: FooterProps) {
@@ -32,8 +28,8 @@ export default function Footer({ locale, dict }: FooterProps) {
 
           {/* Copyright */}
           <div className="text-sm font-extralight text-gray-500">
-            <p>{dict.footer.copyright}</p>
-            <p className="mt-1">{dict.footer.rights}</p>
+            <p>{dict.copyright}</p>
+            <p className="mt-1">{dict.rights}</p>
           </div>
         </div>
       </div>

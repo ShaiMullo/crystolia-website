@@ -2,21 +2,12 @@
 
 import Image from "next/image";
 import { WHATSAPP_URL } from "@/lib/whatsapp";
+import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "../../i18n/config";
 
 interface ProductsProps {
   locale: Locale;
-  dict: {
-    products: {
-      title: string;
-      subtitle: string;
-      items: Array<{
-        title: string;
-        description: string;
-        whatsapp: string;
-      }>;
-    };
-  };
+  dict: Dictionary["products"];
 }
 
 export default function Products({ locale, dict }: ProductsProps) {
@@ -54,17 +45,17 @@ export default function Products({ locale, dict }: ProductsProps) {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-extralight tracking-tight text-gray-900 mb-4">
-            {dict.products.title}
+            {dict.title}
           </h2>
           <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
-            {dict.products.subtitle}
+            {dict.subtitle}
           </p>
         </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {products.map((product, index) => {
-            const productData = dict.products.items[index];
+            const productData = dict.items[index];
             return (
               <div
                 key={product.size}

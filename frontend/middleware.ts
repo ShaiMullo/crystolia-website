@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/; // ignore files like /favicon.ico
 
-export function middleware(req) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Ignore public files and API routes

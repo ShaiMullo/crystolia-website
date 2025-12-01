@@ -1,19 +1,11 @@
 "use client";
 
+import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "../../i18n/config";
 
 interface FeaturesProps {
   locale: Locale;
-  dict: {
-    features: {
-      title: string;
-      subtitle: string;
-      items: Array<{
-        title: string;
-        description: string;
-      }>;
-    };
-  };
+  dict: Dictionary["features"];
 }
 
 export default function Features({ locale, dict }: FeaturesProps) {
@@ -38,16 +30,16 @@ export default function Features({ locale, dict }: FeaturesProps) {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-extralight tracking-tight text-gray-900 mb-4">
-            {dict.features.title}
+            {dict.title}
           </h2>
           <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
-            {dict.features.subtitle}
+            {dict.subtitle}
           </p>
         </div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dict.features.items.map((feature, index) => (
+          {dict.items.map((feature, index) => (
             <div
               key={index}
               className="group relative p-8 rounded-3xl bg-gradient-to-br from-white to-gray-50/50 border border-gray-100 hover:border-[#F5C542]/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2"

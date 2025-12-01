@@ -3,19 +3,12 @@
 import { useState, useEffect } from "react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Image from "next/image";
+import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "../../i18n/config";
 
 interface HeaderProps {
   locale: Locale;
-  dict: {
-    nav: {
-      home: string;
-      products: string;
-      features: string;
-      about: string;
-      contact: string;
-    };
-  };
+  dict: Dictionary["nav"];
 }
 
 export default function Header({ locale, dict }: HeaderProps) {
@@ -70,31 +63,31 @@ export default function Header({ locale, dict }: HeaderProps) {
             href="#home"
             className="text-sm font-light text-gray-700 hover:text-[#F5C542] transition-colors duration-300"
           >
-            {dict.nav.home}
+            {dict.home}
           </a>
           <a
             href="#products"
             className="text-sm font-light text-gray-700 hover:text-[#F5C542] transition-colors duration-300"
           >
-            {dict.nav.products}
+            {dict.products}
           </a>
           <a
             href="#features"
             className="text-sm font-light text-gray-700 hover:text-[#F5C542] transition-colors duration-300"
           >
-            {dict.nav.features}
+            {dict.features}
           </a>
           <a
             href="#about"
             className="text-sm font-light text-gray-700 hover:text-[#F5C542] transition-colors duration-300"
           >
-            {dict.nav.about}
+            {dict.about}
           </a>
           <a
             href="#contact"
             className="text-sm font-light text-gray-700 hover:text-[#F5C542] transition-colors duration-300"
           >
-            {dict.nav.contact}
+            {dict.contact}
           </a>
         </div>
 

@@ -1,16 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import type { Dictionary } from "@/i18n/getDictionary";
 import type { Locale } from "../../i18n/config";
 
 interface AboutProps {
   locale: Locale;
-  dict: {
-    about: {
-      title: string;
-      content: string[];
-    };
-  };
+  dict: Dictionary["about"];
 }
 
 export default function About({ locale, dict }: AboutProps) {
@@ -32,11 +28,11 @@ export default function About({ locale, dict }: AboutProps) {
             }`}
           >
             <h2 className="text-5xl md:text-6xl font-extralight tracking-tight text-gray-900">
-              {dict.about.title}
+              {dict.title}
             </h2>
 
             <div className="space-y-6">
-              {dict.about.content.map((paragraph, index) => (
+              {dict.content.map((paragraph, index) => (
                 <p
                   key={index}
                   className="text-lg md:text-xl font-light text-gray-600 leading-relaxed"
