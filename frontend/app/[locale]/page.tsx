@@ -1,21 +1,30 @@
 import { getDictionary } from "@/i18n/getDictionary";
-import Hero from "../components/Hero";
-import Features from "../components/Features";
-import Products from "../components/Products";
-import About from "../components/About";
-import Contact from "../components/Contact";
+import { Locale } from "@/i18n/config";
 
-export default async function Page(props: { params: Promise<{ locale: string }> }) {
-  const { locale } = await props.params;
+import Hero from "@/app/components/Hero";
+import Features from "@/app/components/Features";
+import Products from "@/app/components/Products";
+import About from "@/app/components/About";
+
+interface PageProps {
+  params: {
+    locale: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  // ודא שהערך מתאים לטייפ הנכון
+  const locale = params.locale as Locale;
+
+  // טוען מילון לפי שפה
   const dict = await getDictionary(locale);
-  
-return (
+
+  return (
     <main>
-      <Hero dict={dict} />
-      <Features dict={dict} />
-      <Products dict={dict} />
-      <About dict={dict} />
-      <Contact dict={dict} />
+      <Hero dict={dict} locale={locale} />
+      <Features dict={dict} locale={locale} />
+      <Products dict={dict} locale={locale} />
+      <About dict={dict} locale={locale} />
     </main>
   );
 }

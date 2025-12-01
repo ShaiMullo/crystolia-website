@@ -1,42 +1,26 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/; // ignore files like /favicon.ico
 
-export function middleware(req) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Ignore public files and API routes
   if (
     pathname.startsWith("/api") ||
-    PUBLIC_FILE.test(pathname) ||
-    pathname.includes("_next")
+    PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
   }
 
-  // If URL already includes a locale — do nothing
-  const locales = ["en", "he", "ru"];
-  const pathLocale = pathname.split("/")[1];
+  // אם אין locale — ננתב לברירת מחדל 'en'
+  const locale = pathname.split("/")[1];
 
-  if (locales.includes(pathLocale)) {
-    return NextResponse.next();
+  const supportedLocales = ["en", "he"];
+
+  if (!supportedLocales.includes(locale)) {
+    return NextResponse.redirect(new URL(`/en${pathname}`, req.url));
   }
 
-  // Detect user browser language
-  const userLocale = req.headers
-    .get("accept-language")
-    ?.split(",")[0]
-    ?.toLowerCase() || "en";
-
-  let locale = "en";
-
-  if (userLocale.startsWith("he")) locale = "he";
-  else if (userLocale.startsWith("ru")) locale = "ru";
-
-  // Redirect to /{locale}/...
-  return NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url));
+  return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)"], // apply to all pages except static files
-};
