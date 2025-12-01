@@ -19,18 +19,23 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: npm install
 
       - name: Lint
+        working-directory: ./frontend
         run: npm run lint --if-present
 
       - name: Build project
+        working-directory: ./frontend
         run: npm run build
 
       - name: Run tests
+        working-directory: ./frontend
         run: npm test --if-present
 
       - name: Deploy to Vercel (DEV)
+        working-directory: ./frontend
         run: |
           npm install -g vercel
           vercel --token=${{ secrets.VERCEL_TOKEN }} --confirm
