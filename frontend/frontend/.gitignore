@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -40,36 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-=======
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-package-lock.json
-
-# Builds
-.next/
-dist/
-out/
-
-# Environment
-.env
-.env.local
-.env.*.local
-*.env
-
-# Logs
-*.log
-
-# OS Files
-.DS_Store
-
-# Vercel
-.vercel/
-
-# Supabase local (if you use it later)
-supabase/.temp
-supabase/.branches
->>>>>>> 963a8b2ec4135ae5a9e6e4c9804d930efd5c9243
-

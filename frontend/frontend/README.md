@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -35,24 +34,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# Crystolia Website & CRM Project
-
-This project is a full-stack web application for a business website and CRM system.
-It includes:
-- Frontend (Next.js)
-- Backend (Supabase / API layer)
-- Infrastructure (GitHub Actions, deployment, etc.)
-
-## Project Structure
-
-/frontend       → Next.js website
-/backend        → backend logic (future)
-/infra          → DevOps configuration
-
-## Goals
-- Build a landing page for the business
-- Enable WhatsApp & phone contact
-- Store customer leads
-- Later expand into a full CRM system
->>>>>>> 963a8b2ec4135ae5a9e6e4c9804d930efd5c9243

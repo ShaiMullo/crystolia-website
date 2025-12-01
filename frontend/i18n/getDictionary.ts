@@ -1,12 +1,15 @@
-import type { Locale } from "./config";
+import "server-only";
 
-const dictionaries = {
-  he: () => import("./dictionaries/he.json").then((module) => module.default),
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  ru: () => import("./dictionaries/ru.json").then((module) => module.default),
+import en from "./dictionaries/en.json";
+import he from "./dictionaries/he.json";
+import ru from "./dictionaries/ru.json";
+
+const dictionaries: Record<string, any> = {
+  en,
+  he,
+  ru,
 };
 
-export const getDictionary = async (locale: Locale) => {
-  return dictionaries[locale]();
+export const getDictionary = async (locale: string) => {
+  return dictionaries[locale];   // <-- לא () !
 };
-
