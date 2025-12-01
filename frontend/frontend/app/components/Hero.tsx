@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { WHATSAPP_URL } from "../../../lib/whatsapp";
 import type { Locale } from "../../i18n/config";
 
 interface HeroProps {
@@ -21,9 +22,7 @@ export default function Hero({ locale, dict }: HeroProps) {
   const isRTL = locale === "he";
 
   const handleWhatsApp = () => {
-    const phone = "972501234567"; // Replace with actual WhatsApp number
-    const message = encodeURIComponent(dict.hero.whatsapp);
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    window.open(WHATSAPP_URL, "_blank");
   };
 
   const handleContact = () => {

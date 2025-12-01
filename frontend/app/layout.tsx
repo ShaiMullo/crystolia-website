@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Crystolia – Premium Sunflower Oil",
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <body>{children}</body>
+      <body>
+        {children}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }

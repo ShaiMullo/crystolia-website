@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { WHATSAPP_URL } from "@/lib/whatsapp";
 import type { Locale } from "../../i18n/config";
 
 interface ProductsProps {
@@ -36,11 +37,8 @@ export default function Products({ locale, dict }: ProductsProps) {
     },
   ];
 
-  const handleWhatsApp = (index: number) => {
-    const phone = "972501234567"; // Replace with actual WhatsApp number
-    const productData = dict.products.items[index];
-    const message = encodeURIComponent(productData.whatsapp);
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  const handleWhatsApp = () => {
+    window.open(WHATSAPP_URL, "_blank");
   };
 
   return (
@@ -96,7 +94,7 @@ export default function Products({ locale, dict }: ProductsProps) {
 
                   {/* WhatsApp CTA Button */}
                   <button
-                    onClick={() => handleWhatsApp(index)}
+                    onClick={handleWhatsApp}
                     className="w-full mt-6 px-6 py-3 bg-[#25D366] text-white rounded-full font-light text-sm tracking-wide hover:bg-[#25D366]/90 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg

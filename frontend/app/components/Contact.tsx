@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { WHATSAPP_URL } from "@/lib/whatsapp";
 import type { Locale } from "../../i18n/config";
 
 interface ContactProps {
@@ -62,11 +63,7 @@ export default function Contact({ locale, dict }: ContactProps) {
   };
 
   const handleWhatsApp = () => {
-    const phone = "972501234567"; // Replace with actual WhatsApp number
-    const message = encodeURIComponent(
-      `${dict.contact.whatsapp}\n\n${dict.contact.form.name}: ${formData.name}\n${dict.contact.form.phone}: ${formData.phone}\n${dict.contact.form.message}: ${formData.message}`
-    );
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+    window.open(WHATSAPP_URL, "_blank");
   };
 
   return (
