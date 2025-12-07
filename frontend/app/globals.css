@@ -21,6 +21,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Ensure SVG icons are always sharp */
+svg {
+  shape-rendering: geometricPrecision;
+}
+
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
@@ -48,6 +53,17 @@ html {
 @keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-slow {
+  from {
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -66,7 +82,11 @@ html {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.8s ease-out;
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-slow {
+  animation: fade-slow 1.5s ease-out;
 }
 
 .animate-slide-up {
@@ -79,4 +99,95 @@ html {
 
 .animate-fade-in-delay-2 {
   animation: fade-in 1s ease-out 0.6s both;
+}
+
+/* Button animation utility */
+.btn-animate {
+  transition: all 0.3s ease-out;
+}
+
+.btn-animate:hover {
+  transform: scale(1.05);
+}
+
+.btn-animate:active {
+  transform: scale(0.98);
+}
+
+/* Premium Luxury Icon Wrapper - Perfect Circle, No Distortion */
+.lux-icon-wrapper {
+  /* Fixed dimensions - perfect circle */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  
+  /* Premium gradient background */
+  background: linear-gradient(135deg, #FFF5D7, #F8E7A2);
+  
+  /* Soft inner shadow for luxury depth */
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(212, 175, 55, 0.2),
+    0 0 12px rgba(212, 175, 55, 0.25);
+  
+  /* Centering for icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Smooth entrance animation */
+  animation: fadeIn 0.8s ease-out forwards;
+  
+  /* Prevent any stretching */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.lux-icon {
+  /* Fixed icon size - never stretches */
+  width: 22px;
+  height: 22px;
+  
+  /* Maintain aspect ratio */
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  
+  /* Premium glow effect */
+  filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.5));
+  
+  /* Smooth transitions */
+  transition: all 0.3s ease;
+  
+  /* Prevent any inheritance that could cause distortion */
+  max-width: 22px;
+  max-height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+/* Hover effect - lift up with increased glow, NO scaling */
+.lux-icon-wrapper:hover {
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(212, 175, 55, 0.2),
+    0 0 16px rgba(212, 175, 55, 0.35),
+    0 0 24px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+.lux-icon-wrapper:hover .lux-icon {
+  /* Lift icon up, increase glow - NO scaling to prevent distortion */
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.7));
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

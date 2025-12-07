@@ -19,7 +19,7 @@ export default function About({ locale, dict }: AboutProps) {
   return (
     <section
       id="about"
-      className="relative py-32 bg-gradient-to-b from-white to-gray-50/30"
+      className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 animate-fade-slow"
     >
       <div
         className={`max-w-7xl mx-auto px-6 lg:px-12 ${isRTL ? "rtl" : "ltr"}`}
@@ -27,7 +27,7 @@ export default function About({ locale, dict }: AboutProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
           <div
-            className={`space-y-8 ${
+            className={`space-y-8 animate-slide-up ${
               isRTL ? "lg:text-right" : "lg:text-left"
             }`}
           >
@@ -35,7 +35,7 @@ export default function About({ locale, dict }: AboutProps) {
               {dict.about.title}
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-6 animate-fade-in-delay">
               {dict.about.content.map((paragraph, index) => (
                 <p
                   key={index}

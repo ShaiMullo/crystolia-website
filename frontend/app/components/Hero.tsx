@@ -86,7 +86,7 @@ export default function Hero({ locale, dict }: HeroProps) {
           {/* WhatsApp Button */}
           <button
             onClick={handleWhatsApp}
-            className="group relative px-8 py-4 bg-[#F5C542] text-white rounded-full font-light text-base tracking-wide hover:bg-[#F5C542]/90 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+            className="btn-animate group relative px-8 py-4 bg-[#F5C542] text-white rounded-full font-light text-base tracking-wide hover:bg-[#F5C542]/90 shadow-lg hover:shadow-xl"
           >
             <span className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ export default function Hero({ locale, dict }: HeroProps) {
           {/* Contact Now Button */}
           <button
             onClick={handleContact}
-            className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-light text-base tracking-wide border border-white/20 hover:border-[#F5C542] hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+            className="btn-animate group px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-light text-base tracking-wide border border-white/20 hover:border-[#F5C542] hover:bg-white/20 shadow-lg hover:shadow-xl"
           >
             {dict.hero.contactNow}
           </button>
@@ -107,7 +107,7 @@ export default function Hero({ locale, dict }: HeroProps) {
           {/* Leave Details Button */}
           <button
             onClick={handleLeaveDetails}
-            className="group px-8 py-4 bg-transparent text-white/90 rounded-full font-light text-base tracking-wide hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
+            className="btn-animate group px-8 py-4 bg-transparent text-white/90 rounded-full font-light text-base tracking-wide hover:text-white"
           >
             {dict.hero.leaveDetails}
           </button>

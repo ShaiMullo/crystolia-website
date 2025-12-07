@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F7E9A9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Motion line 1 (behind) -->
+  <path d="M6 20 L10 20 M6 24 L10 24 M6 28 L10 28" stroke="url(#goldGrad6)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <!-- Motion line 2 (behind) -->
+  <path d="M38 20 L42 20 M38 24 L42 24 M38 28 L42 28" stroke="url(#goldGrad6)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <!-- Lightning bolt -->
+  <path d="M24 6 L16 22 L22 22 L20 38 L32 22 L26 22 Z" stroke="url(#goldGrad6)" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Inner accent line -->
+  <path d="M20 18 L24 22 L20 26" stroke="#D4AF37" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+</svg>

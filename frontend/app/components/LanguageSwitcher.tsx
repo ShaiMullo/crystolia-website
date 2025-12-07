@@ -16,6 +16,7 @@ const COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year in seconds
 
 /**
  * Set a cookie with the preferred language
+ * Improved: Uses both max-age and expires for better compatibility
  */
 function setLanguageCookie(locale: Locale) {
   if (typeof document === "undefined") return;
@@ -23,7 +24,8 @@ function setLanguageCookie(locale: Locale) {
   const expires = new Date();
   expires.setTime(expires.getTime() + COOKIE_MAX_AGE * 1000);
   
-  document.cookie = `${COOKIE_NAME}=${locale}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+  // Set cookie with max-age and expires for maximum compatibility
+  document.cookie = `${COOKIE_NAME}=${locale}; max-age=${COOKIE_MAX_AGE}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
 }
 
 export default function LanguageSwitcher() {
@@ -48,9 +50,25 @@ export default function LanguageSwitcher() {
     setLanguageCookie(newLocale);
 
     startTransition(() => {
-      // Always navigate to the root of the new locale
-      // This ensures clean navigation and proper locale switching
-      const newPath = `/${newLocale}`;
+      // Preserve path after locale - extract everything after the locale segment
+      const pathSegments = pathname.split("/").filter(Boolean);
+      const hasLocale = i18n.locales.includes(pathSegments[0] as Locale);
+      
+      let newPath: string;
+      
+      if (hasLocale) {
+        // Replace locale but keep the rest of the path (works for nested routes)
+        pathSegments[0] = newLocale;
+        newPath = "/" + pathSegments.join("/");
+      } else {
+        // No locale in path, add new locale and preserve rest
+        // Handle root path and paths without locale prefix
+        if (pathname === "/") {
+          newPath = `/${newLocale}`;
+        } else {
+          newPath = `/${newLocale}${pathname.startsWith("/") ? pathname : "/" + pathname}`;
+        }
+      }
       
       // Navigate to the new path - Next.js will automatically re-render with new params
       router.push(newPath);
@@ -59,27 +77,38 @@ export default function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-2">
-      {languages.map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => changeLocale(lang.code)}
-          disabled={isPending}
-          className={`
-            relative px-3 py-1.5 rounded-full
-            transition-all duration-300 ease-out
-            hover:scale-110 active:scale-95
-            ${
-              currentLocale === lang.code
-                ? "bg-gradient-to-r from-[#F5C542]/20 to-[#F5C542]/10 backdrop-blur-sm"
-                : "hover:bg-white/10"
-            }
-            disabled:opacity-50 disabled:cursor-not-allowed
-          `}
-          aria-label={`Switch to ${lang.label}`}
-        >
-          <span className="text-2xl leading-none">{lang.flag}</span>
-        </button>
-      ))}
+      {languages.map((lang) => {
+        const isActive = currentLocale === lang.code;
+        return (
+          <button
+            key={lang.code}
+            onClick={() => changeLocale(lang.code)}
+            disabled={isPending}
+            className={`
+              relative px-3 py-1.5 rounded-full
+              transition-all duration-300 ease-out
+              group
+              ${isActive 
+                ? "bg-gradient-to-r from-[#F5C542]/20 to-[#F5C542]/10 backdrop-blur-sm ring-2 ring-[#F5C542]/30 scale-110" 
+                : "hover:bg-white/10 hover:ring-2 hover:ring-white/20"
+              }
+              hover:scale-110 active:scale-95
+              disabled:opacity-50 disabled:cursor-not-allowed
+              disabled:hover:scale-100
+            `}
+            aria-label={`Switch to ${lang.label}`}
+            aria-pressed={isActive}
+          >
+            {/* Active indicator ring */}
+            {isActive && (
+              <span className="absolute inset-0 rounded-full ring-2 ring-[#F5C542]/50 animate-pulse" />
+            )}
+            <span className="text-2xl leading-none relative z-10 transition-transform duration-300 group-hover:scale-110">
+              {lang.flag}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }

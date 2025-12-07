@@ -46,7 +46,7 @@ export default function Products({ locale, dict }: ProductsProps) {
   return (
     <section
       id="products"
-      className="relative py-32 bg-gradient-to-b from-white to-gray-50/30"
+      className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 animate-fade-slow"
     >
       <div
         className={`max-w-7xl mx-auto px-6 lg:px-12 ${
@@ -54,11 +54,11 @@ export default function Products({ locale, dict }: ProductsProps) {
         }`}
       >
         {/* Section Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-20 animate-slide-up">
           <h2 className="text-5xl md:text-6xl font-extralight tracking-tight text-gray-900 mb-4">
             {dict.products.title}
           </h2>
-          <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto animate-fade-in-delay">
             {dict.products.subtitle}
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function Products({ locale, dict }: ProductsProps) {
                   {/* WhatsApp CTA Button */}
                   <button
                     onClick={() => handleWhatsApp(index)}
-                    className="w-full mt-6 px-6 py-3 bg-[#25D366] text-white rounded-full font-light text-sm tracking-wide hover:bg-[#25D366]/90 transition-all duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                    className="btn-animate w-full mt-6 px-6 py-3 bg-[#25D366] text-white rounded-full font-light text-sm tracking-wide hover:bg-[#25D366]/90 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg
                       className="w-4 h-4"

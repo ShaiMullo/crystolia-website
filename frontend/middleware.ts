@@ -6,10 +6,11 @@ const COOKIE_NAME = "preferred-lang";
 
 /**
  * Get locale from cookie
+ * Improved: Validates cookie value and returns null if invalid
  */
 function getLocaleFromCookie(request: NextRequest): string | null {
   const cookie = request.cookies.get(COOKIE_NAME);
-  if (cookie && i18n.locales.includes(cookie.value as any)) {
+  if (cookie?.value && i18n.locales.includes(cookie.value as any)) {
     return cookie.value;
   }
   return null;
@@ -48,17 +49,24 @@ function detectBrowserLocale(request: NextRequest): string {
 
 /**
  * Get the best locale for the request
- * Priority: 1. Cookie, 2. Browser language, 3. Default
+ * Priority: 1. Cookie (user preference), 2. Browser language, 3. Default locale
+ * Improved: Validates cookie and falls back gracefully
  */
 function getLocale(request: NextRequest): string {
-  // First, check cookie (user preference)
+  // First, check cookie (user preference) - highest priority
   const cookieLocale = getLocaleFromCookie(request);
   if (cookieLocale) {
     return cookieLocale;
   }
 
-  // Then, detect from browser language
-  return detectBrowserLocale(request);
+  // Then, detect from browser Accept-Language header
+  const browserLocale = detectBrowserLocale(request);
+  if (browserLocale && i18n.locales.includes(browserLocale as any)) {
+    return browserLocale;
+  }
+
+  // Fallback to default locale if all else fails
+  return i18n.defaultLocale;
 }
 
 export function middleware(request: NextRequest) {
