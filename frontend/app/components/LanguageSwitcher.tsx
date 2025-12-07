@@ -36,7 +36,7 @@ export default function LanguageSwitcher() {
   const pathLocale = pathSegments[0];
   const currentLocale: Locale = i18n.locales.includes(pathLocale as Locale)
     ? (pathLocale as Locale)
-    : i18n.defaultLocale;
+    : (i18n.defaultLocale as Locale);
 
   const changeLocale = (newLocale: Locale) => {
     // Don't do anything if clicking the current locale

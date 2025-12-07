@@ -28,7 +28,7 @@ export default async function LocaleLayout({
   } else {
     // Only fallback if locale is completely invalid
     console.warn(`[i18n] Invalid locale "${rawLocale}", falling back to default "${i18n.defaultLocale}"`);
-    locale = i18n.defaultLocale;
+    locale = i18n.defaultLocale as Locale;
   }
 
   // Get dictionary - this will never return undefined due to fallback in getDictionary
