@@ -1,17 +1,21 @@
 import { getDictionary } from "@/i18n/getDictionary";
 import { Locale, i18n } from "@/i18n/config";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
-import Hero from "@/app/components/Hero";
-import Features from "@/app/components/Features";
-import Products from "@/app/components/Products";
-import About from "@/app/components/About";
-import Contact from "@/app/components/Contact";
-
-interface PageProps {
+interface LayoutProps {
+  children: React.ReactNode;
   params: Promise<{ locale: string }> | { locale: string };
 }
 
-export default async function Page({ params }: PageProps) {
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: LayoutProps) {
   // Handle params - can be Promise in Next.js 15+ or object in Next.js 14/16
   const resolvedParams = await Promise.resolve(params);
   const rawLocale = resolvedParams.locale;
@@ -41,13 +45,14 @@ export default async function Page({ params }: PageProps) {
     console.warn(`[i18n] Dictionary for "${locale}" may be missing expected keys`);
   }
 
+  const isRTL = locale === "he";
+
   return (
-    <main>
-      <Hero dict={dict} locale={locale} />
-      <Features dict={dict} locale={locale} />
-      <Products dict={dict} locale={locale} />
-      <About dict={dict} locale={locale} />
-      <Contact dict={dict} locale={locale} />
-    </main>
+    <div className={isRTL ? "rtl" : "ltr"}>
+      <Header locale={locale} dict={dict} />
+      {children}
+      <Footer locale={locale} dict={dict} />
+    </div>
   );
 }
+

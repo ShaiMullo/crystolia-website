@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { useTransition } from "react";
 import type { Locale } from "../../i18n/config";
+import { i18n } from "../../i18n/config";
 
 const languages: { code: Locale; flag: string; label: string }[] = [
   { code: "he", flag: "🇮🇱", label: "עברית" },
@@ -10,16 +11,48 @@ const languages: { code: Locale; flag: string; label: string }[] = [
   { code: "ru", flag: "🇷🇺", label: "Русский" },
 ];
 
+const COOKIE_NAME = "preferred-lang";
+const COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year in seconds
+
+/**
+ * Set a cookie with the preferred language
+ */
+function setLanguageCookie(locale: Locale) {
+  if (typeof document === "undefined") return;
+  
+  const expires = new Date();
+  expires.setTime(expires.getTime() + COOKIE_MAX_AGE * 1000);
+  
+  document.cookie = `${COOKIE_NAME}=${locale}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+}
+
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  const currentLocale = (pathname.split("/")[1] || "en") as Locale;
+  // Extract current locale from pathname
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const pathLocale = pathSegments[0];
+  const currentLocale: Locale = i18n.locales.includes(pathLocale as Locale)
+    ? (pathLocale as Locale)
+    : i18n.defaultLocale;
 
-  const changeLocale = (locale: Locale) => {
+  const changeLocale = (newLocale: Locale) => {
+    // Don't do anything if clicking the current locale
+    if (newLocale === currentLocale) {
+      return;
+    }
+
+    // Set cookie immediately before navigation
+    setLanguageCookie(newLocale);
+
     startTransition(() => {
-      const newPath = pathname.replace(/^\/(he|en|ru)/, `/${locale}`) || `/${locale}`;
+      // Always navigate to the root of the new locale
+      // This ensures clean navigation and proper locale switching
+      const newPath = `/${newLocale}`;
+      
+      // Navigate to the new path - Next.js will automatically re-render with new params
       router.push(newPath);
     });
   };
